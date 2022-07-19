@@ -11,7 +11,7 @@ block_image_width = 5;
 block_image_height = 5;
 
 function load_img(){
-	fabric.Image.fromURL("golf-h1.png",function(Img) {
+	fabric.Image.fromURL("golf-h.png",function(Img) {
 		hole_obj=Img
 		hole_obj.scaleToWidth(50)
 		hole_obj.scaleToHeight(50)
@@ -27,6 +27,16 @@ function load_img(){
 function new_image()
 {
 	// write code to Upload ball image on canvas
+	fabric.Image.fromURL("ball.png",function(Img) {
+		ball_obj=Img
+		ball_obj.scaleToWidth(50)
+		ball_obj.scaleToHeight(50)
+		ball_obj.set({
+			top:ball_y,
+			left:ball_x
+	    })
+	    canvas.add(ball_obj)
+        })
 }
 
 window.addEventListener("keydown", my_keydown);
@@ -39,7 +49,12 @@ function my_keydown(e)
 	And id coordinates matches them remove ball image, 
 	display "GAME OVER!!!" 
 	and make canvas border 'red'. */
+	if (hole_x==ball_x && hole_y==hole_x)
 	
+{
+canvas.remove(ball_obj)
+document.getElementById("winnertag").innerHTML="You Won!!!!!"
+	}
 	else{
 		if(keyPressed == '38')
 		{
@@ -66,11 +81,20 @@ function my_keydown(e)
 	function up()
 	{
 		// Write a code to move ball upward.
+		if(ball_y>=5)
+ ball_y=ball_y-5
+ canvas.remove(ball_obj)
+ new_image()
 	}
 
 	function down()
 	{
 		 // Write a code to move ball downward.
+		 if(ball_y<=450){
+		 ball_y=ball_y+5
+ canvas.remove(ball_obj)
+ new_image()
+		 }
 	}
 
 	function left()
@@ -78,6 +102,9 @@ function my_keydown(e)
 		if(ball_x >5)
 		{
 			// Write a code to move ball left side.
+			ball_x=ball_x-5
+ canvas.remove(ball_obj)
+ new_image()
 		}
 	}
 
@@ -85,6 +112,9 @@ function my_keydown(e)
 	{
 		if(ball_x <=1050)
 		{
+			ball_x=ball_x+5
+ canvas.remove(ball_obj)
+ new_image()
 			// Write a code to move ball right side.
 		}
 	}
